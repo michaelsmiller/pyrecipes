@@ -1,0 +1,7 @@
+TODO:
+* Look at format for PNG, JPG, etc.
+* Figure out grammar
+* Specs for descriptions
+* Figure out how big a "big" bowl vs "medium" bowl is
+
+* Write parser for language

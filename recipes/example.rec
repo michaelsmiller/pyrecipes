@@ -1,0 +1,23 @@
+name: Example Recipe
+author: Michael Miller
+description: First fake example recipe!
+note: Do something better
+
+// bowl1 = bowl(2 Liters)
+//  This is for resolving ambiguity
+
+// Examples of stipulations for Blocks:
+//   for <10 min
+//   until(until_condition)
+//   while(repeat_condition)
+
+add(ingredient=dough, container=bowl1)
+add(ingredient=egg_wash,  container=bowl1)
+// bowl has attributes based on what's in it
+// so whisk can be inferred
+mix(container=bowl1, tool=whisk1, until=[texture(bowl1, "fluffy"), almost_curdled(bowl1.butter)])
+
+shape(ingredient=dough, detail="triangle")
+
+// NOTE: right now there will be a bias toward inventing containers,
+//       since there is no sense of derived ingredients

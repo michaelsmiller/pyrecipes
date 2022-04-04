@@ -1,0 +1,21 @@
+Action :: {
+  action_name : string (from list)
+  ingredient : Ingredient I
+  tool : Tool | null = null
+  end_when : Predicate(I) = unspecified(ingredient)
+}
+
+Ingredient :: {
+  ingredient_name : string (from list)
+  amount : Amount
+}
+
+Amount :: {
+  number : Decimal, 4 digits
+  unit  : Unit
+}
+
+Unit :: {
+  unit_name : string (from list)
+  dimension : e.g. length, volume, plain number count, ...
+}
