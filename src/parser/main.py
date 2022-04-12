@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import re
+import sys
 
 from parser.cooking_types import Condition, Action, Tool, Ingredient, Amount, Unit, Recipe
 from parser.templates     import format_action
@@ -14,7 +15,21 @@ def parse_recipe(filename : str) -> Recipe:
         lines = f.readlines()
 
     # Filter out comments and whitespace
-    lines = [s for line in lines if len(s := line.strip()) > 0 and not (len(s) >= 2 and s[:2] == "//")]
+    quoted = False
+    lines2 = []
+    for line in lines:
+        line = line.strip()
+        i = 0
+        while i < len(line):
+            if (c := line[i]) == '"':
+                quoted = not quoted
+            elif line[i:i+2] == "//" and not quoted:
+                line = line[:i]
+            i += 1
+        if len(line) > 0:
+            lines2.append(line)
+    lines = lines2
+
 
     if len(lines) == 0:
         print("Recipe is empty!")
@@ -42,8 +57,9 @@ def parse_recipe(filename : str) -> Recipe:
     recipe = Recipe(ingredients=ingredients, implicit_ingredients=implicit_ingredients, tools=tools, containers=containers, steps=steps, header=header)
     return recipe
 
-def pprint(recipe : Recipe):
+def pprint(recipe : Recipe) -> None:
     # Header
+    print("\n----OUTPUT----\n")
     for key in recipe.header:
         print(f"{key.capitalize()}: {recipe.header[key]}")
 

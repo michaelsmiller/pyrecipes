@@ -1,11 +1,11 @@
 from dataclasses import dataclass
-from typing import Any, Sequence, Dict
-# TODO: replace dataclasses with the parser thing (pygment?)
+from typing import Any
+# TODO: replace dataclasses with the parser thing (pydantic is made for parsing)
 
 class CookingObject:
     pass
 
-Expression = Sequence[CookingObject] | CookingObject
+Expression = list[CookingObject] | CookingObject
 
 # internal representation of parser, not in data format
 @dataclass
@@ -39,7 +39,7 @@ class Tool:
 class Condition:
     name       : str
     obj        : CookingObject
-    comparison : Any = None
+    comparison : Any = None # TODO: figure out typing here
 
 @dataclass
 class Action:
@@ -52,17 +52,17 @@ class Action:
 
 @dataclass
 class Block:
-    steps       : Sequence[Action]
+    steps       : list[Action]
     stipulation : Condition | None = None
 
 @dataclass
 class Recipe:
-    ingredients          : Sequence[Ingredient]
-    implicit_ingredients : Sequence[Ingredient]
-    tools                : Sequence[Tool]
-    containers           : Sequence[Container]
-    steps                : Sequence[Action]
-    header               : Dict[str, str]
+    ingredients          : list[Ingredient]
+    implicit_ingredients : list[Ingredient]
+    tools                : list[Tool]
+    containers           : list[Container]
+    steps                : list[Action]
+    header               : dict[str, str]
 
 
 
